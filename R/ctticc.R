@@ -25,8 +25,22 @@ ctticc<-function(data, item, plot){
   eq <- function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(pseudoa*(x-pseudob))))))}          #FUNCTION THAT CREATES ICC BASED ON pseudob AND pseudoa
   output<-cbind(pseudob, pseudoa)
 
+  # if(plot==TRUE & item<2){
+  #   p<- ggplot() + xlim(-4,4) + geom_function(fun=eq, data=df)  #PLOTTING CTT-ICC AND IRT-ICC SIDE BY SIDE.
+  #   p
+
+  # }
   if(plot==TRUE){
-    curve(eq, col="red", xlim=c(-4,4), ylim=c(0,1), main="Item Characteristic Curve")    #PLOTTING CTT-ICC AND IRT-ICC SIDE BY SIDE.
+    p<-0
+    eq<- function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[1]*(x-df$PseudoB[1]))))))}
+    p<-curve(eq, col="white", xlim=c(-4,4),ylim=c(0,1), xlab="Level of Trait", ylab="p(1.0)")
+    colors<-rainbow(n = 25)
+    for(i in item){
+      eq<-function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[i]*(x-df$PseudoB[i]))))))}
+      p[i]<-curve(eq, col=colors[i], xlim=c(-4,4), ylim=c(0,1), main="Item Characteristic Curve", add=TRUE)
+      p
+      legend(x=-4, y=1, legend=colnames(data[item]), fill=colors[item])
+    }
 
   }
 

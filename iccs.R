@@ -35,11 +35,12 @@ if(plot=TRUE & item>1){
   p<-0
   eq<- function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[1]*(x-df$PseudoB[1]))))))}
   p<-curve(eq, col="white", xlim=c(-4,4),ylim=c(0,1), xlab="Level of Trait", ylab="p(1.0)")
-  colors<-rep(c("Red", "blue","yellow","orange","purple","brown","green","pink","black", "white"), 10)
+  colors<-rainbow(n = 25)
   for(i in 20:25){
     eq<-function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[i]*(x-df$PseudoB[i]))))))}
     p[i]<-curve(eq, col=colors[i], xlim=c(-4,4), ylim=c(0,1), main="Item Characteristic Curve", add=TRUE)
     p
+    legend(x=-4, y=1, legend=colnames(data[20:25]), fill=colors[20:25])
   }
 
 }
