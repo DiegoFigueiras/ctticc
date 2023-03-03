@@ -1,6 +1,6 @@
 # ctticc
 
-Item characteristic curves (ICC's) are visual indicators of important attributes of assessment items - most commonly *difficulty* and *discrimination*. Assessment specialists who examine ICC's usually do so from within the psychometric framework of either Item Response Theory (IRT) or Rasch modeling. This `R` package provides an extension of this tradition into the Classical Test Theory (CTT) framework. The package has `psych` and `ggplot2` dependencies that facilitate the estimation of CTT-generated difficulty (_pseudob_) and discrimination (_pseudoa_) "parameters", and then plots the ICCs. 
+Item characteristic curves (ICC's) are visual indicators of important attributes of assessment items - most commonly *difficulty* and *discrimination*. Assessment specialists who examine ICC's usually do so from within the psychometric framework of either Item Response Theory (IRT) or Rasch modeling. This `R` package provides an extension of this tradition into the Classical Test Theory (CTT) framework. The package has a `psych` dependency that facilitate the estimation of CTT-generated difficulty (_pseudob_) and discrimination (_pseudoa_) "parameters" from a `psych::alpha` object, and then plots the ICCs. 
 
 A nice summary of how to interpret IRT parameters is located here: https://wnarifin.github.io/simpler/irt_2PL.html
 
@@ -30,7 +30,7 @@ ctticc(dataframe,items,plot)
 
 The `dataframe` should contain binary responses.
 
-The `items` field indicates which columns should be included in the analysis.
+The `items` field indicates which columns should be included in the analysis. Use the concatenate function (e.g., `c()`) if you'd like to specify non-sequantial items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
 
 `plot` is logical with values of `TRUE` or `FALSE`.
 
