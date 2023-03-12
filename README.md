@@ -30,7 +30,7 @@ ctticc(dataframe,items,plot)
 
 The `dataframe` should contain binary responses.
 
-The `items` field indicates which columns should be included in the analysis. Use the concatenate function (e.g., `c()`) if you'd like to specify non-sequantial items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
+The `items` field indicates which columns should be included in the analysis. Use the concatenate function (e.g., `c()`) if you'd like to specify non-sequential items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
 
 `plot` is logical with values of `TRUE` or `FALSE`.
 
