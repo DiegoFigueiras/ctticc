@@ -34,12 +34,12 @@ ctticc<-function(data, item, plot){
     p<-0
     eq<- function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[1]*(x-df$PseudoB[1]))))))}
     p<-curve(eq, col="white", xlim=c(-4,4),ylim=c(0,1), xlab="Level of Trait", ylab="p(1.0)")
-    colors<-rainbow(n = 25)
+    colors<-rainbow(n = length(item))
     for(i in item){
       eq<-function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[i]*(x-df$PseudoB[i]))))))}
       p[i]<-curve(eq, col=colors[i], xlim=c(-4,4), ylim=c(0,1), main="Item Characteristic Curve", add=TRUE)
       p
-      legend(x=-4, y=1, legend=colnames(data[item]), fill=colors[item])
+      legend(x=-4, y=1, legend=colnames(data[item]), fill=colors[length(item)], pt.cex=0.5)
     }
 
   }
@@ -48,4 +48,5 @@ ctticc<-function(data, item, plot){
   return(output)
 }
 
-
+data<-read.csv("testdata.csv")
+ctticc(data, 1:10, TRUE)
