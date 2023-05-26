@@ -4,6 +4,7 @@ data<-read.csv("testdata.csv")
   library(ggplot2)
   library(Rmisc)
   library(cowplot)
+library(gridExtra)
   pseudob<-0 #JUST CREATING A PLACEHOLDER FOR pseudob SO THE FUNCTION BELOW CAN RUN
   ahat<-function(x){
     r<-(((2.71828)^x)-(1/(2.71828)^x))/(2.71828-(2.71828)^x)
@@ -24,7 +25,7 @@ data<-read.csv("testdata.csv")
   c<-0
   pseudob<-df$PseudoB[1:5]
   pseudoa<-df$PseudoA[1:5]
-  df$inum<-1:25
+  df$inum<-row.names(df)
 
   eq <- function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(pseudoa*(x-pseudob))))))}          #FUNCTION THAT CREATES ICC BASED ON pseudob AND pseudoa
   output<-cbind(pseudob, pseudoa)
@@ -34,38 +35,41 @@ data<-read.csv("testdata.csv")
   #   p
 
   # }
-    p<-list()
+    #p<-list()
     #eq<- function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[1]*(x-df$PseudoB[1]))))))}
     #p<-curve(eq, col="white", xlim=c(-4,4),ylim=c(0,1), xlab="Level of Trait", ylab="p(1.0)")
+    #eq<-function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA*(x-df$PseudoB))))))}
     colors<-rainbow(n = 25)
-    for(i in 1:5){
-      eq<-function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[i]*(x-df$PseudoB[i]))))))}
-      p[[i]]<-ggplot(df)+geom_function(fun=eq)+scale_x_continuous(limits=c(-4,4),breaks=waiver(), labels=c("0.9","0.7","0.5","0.3","0.1"))+
-        theme(legend.position=c(0.95,0.95), legend.justification=c("right","top"))+facet_grid(rows=vars(inum))# come back and make sure that those 0.9-0.1 are right
+    p <- Map(function(A, B, item) {
+      ggplot(df, aes(color=item)) +
+        geom_function(fun = function(x) {
+          c + ((1 - c) * (1 / (1 + 2.71828^(-1.7*(A * (x-B))))))
+        }) +
+        scale_x_continuous(limits=c(-4,4), labels=c("0.9","0.7","0.5","0.3","0.1"))+
+        labs(x = "Ability",
+             y = "p(1.0)",
+             color="Items")+
+        theme(legend.position="top")
+    }, df$PseudoA, df$PseudoB, df$inum)
+
+    p
+    grid.arrange(grobs=c(p), ncol = 2, rnow = 3)
+        # come back and make sure that those 0.9-0.1 are right
 
     }
-    library(gridExtra)
-    grid.arrange(grobs=c(p[1], p[2], p[3], p[4], p[5]), ncol=2, rnow=5)
-
-    #par(mfrow=c(i, 1))
-
-
-p<-ggplot(df)+
-  for(i in 1:5){
-    eq<-function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(PseudoA[i]*(x-PseudoB[i]))))))}
-    geom_function(fun=eq)
-  }
-
-p+scale_x_continuous(limits=c(-4,4),breaks=waiver(), labels=c("0.9","0.7","0.5","0.3","0.1"))+
-      theme(legend.position=c(0.95,0.95), legend.justification=c("right","top"))
 
 
 
+p <- Map(function(A, B) {
+  ggplot() +
+    ylim(0,1)+
+    ylab("p(1.0)")+
+    geom_function(fun = function(x) {
+      c + ((1 - c) * (1 / (1 + 2.71828^(-1.7*(A * (x-B))))))
+    }) +
+    scale_x_continuous(limits=c(-4,4), labels=c("Low ability","","Medium ability","","High ability"))+
+    theme(legend.position="top")
 
+}, df$PseudoA, df$PseudoB)
 
-eq<-function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[1]*(x-df$PseudoB[1]))))))}
-#df<-df[1:2,]
-p<-ggplot(df[1:2,])+
-geom_function(fun=eq)
-p+scale_x_continuous(limits=c(-4,4),breaks=waiver(), labels=c("0.9","0.7","0.5","0.3","0.1"))+
-  theme(legend.position=c(0.95,0.95), legend.justification=c("right","top"))+facet_grid(rows=vars(df$inum[1]))
+p
