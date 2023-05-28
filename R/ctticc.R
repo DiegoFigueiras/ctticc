@@ -78,7 +78,8 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
         scale_x_continuous(limits=c(-4,4), labels=c("Low ability","","Medium ability","","High ability"))+
         labs(y = "p(1.0)",
              color="Item =")+
-        theme(legend.position="top")
+        theme(legend.justification=c(0,1), legend.position=c(0,1))
+        ##theme(legend.position="top")
     }, df$PseudoA, df$PseudoB, df$inum)
 
 
@@ -92,4 +93,4 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
 }
 
 data<-read.csv("testdata.csv")
-ctticc(data, 1:20, plot="grid", ncol=5, nrow=4)
+ctticc(data, 7:10, plot="grid", ncol=1, nrow=4)
