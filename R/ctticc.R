@@ -40,7 +40,7 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
         geom_function(fun = function(x) {
           c + ((1 - c) * (1 / (1 + 2.71828^(-1.7*(A * (x-B))))))
         }) +
-        scale_x_continuous(limits=c(-4,4), labels=c("Low ability","","Medium ability","","High ability"))+
+        scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
         labs(
              y = "p(1.0)",
              color="Item =")+
@@ -75,9 +75,9 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
         geom_function(fun = function(x) {
           c + ((1 - c) * (1 / (1 + 2.71828^(-1.7*(A * (x-B))))))
         }) +
-        scale_x_continuous(limits=c(-4,4), labels=c("Low ability","","Medium ability","","High ability"))+
+        scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
         labs(y = "p(1.0)",
-             color="Item =")+
+           color="Item =")+
         theme(legend.justification=c(0,1), legend.position=c(0,1))
         ##theme(legend.position="top")
     }, df$PseudoA, df$PseudoB, df$inum)
@@ -93,4 +93,5 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
 }
 
 data<-read.csv("testdata.csv")
-ctticc(data, 7:10, plot="grid", ncol=1, nrow=4)
+ctticc(data, 7:10, plot="grid", ncol=2,nrow=2)
+
