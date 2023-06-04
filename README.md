@@ -2,21 +2,20 @@
 
 Item characteristic curves (ICC's) are visual indicators of important attributes of assessment items - most commonly *difficulty* and *discrimination*. Assessment specialists who examine ICC's usually do so from within the psychometric framework of either Item Response Theory (IRT) or Rasch modeling. This `R` package provides an extension of this tradition into the Classical Test Theory (CTT) framework. The package has a `psych` dependency that facilitate the estimation of CTT-generated difficulty (_pseudob_) and discrimination (_pseudoa_) "parameters" from a `psych::alpha` object, and then plots the ICCs. 
 
-A nice summary of how to interpret IRT parameters is located here: https://wnarifin.github.io/simpler/irt_2PL.html
+A handy compilation of how to interpret IRT parameters is [located here](https://wnarifin.github.io/simpler/irt_2PL.html).
 
 |   Quick Links  |
 |:-------|
-| [**Example Data**](https://github.com/MontclairML/ctticc#Example-data) |
+| [**Plot Screenshots**](https://github.com/MontclairML/ctticc#Plot-Screenshots) |
 | [**How to Use**](https://github.com/MontclairML/ctticc#How-to-use) |
 | [**Future Advancements**](https://github.com/MontclairML/ctticc#Future-advancements) |
 
 
-## Example Data
+## Plot Screenshots
 
-| `testdata.csv` | `dataset2` | `possibly 3?` |
+| `separate` | `grid` | `together` |
 |:---------------:|:---------------------:|:---------------------:|
-|[![](testdata.PNG)](https://brentthorne.github.io/posterdown_html_showcase/) | ![](images/betterland_july2019-1.png) | ![](images/betterposterport.png) |
-|binary responses with missing values (25 items and 10,000 respondents)||| 
+|![](separate.png) | ![](grid.png) | ![](together.png) 
 
 ## How to Use
 
@@ -26,14 +25,14 @@ Next, load the package via `library(ctticc)`
 
 The function specification is:
 
-ctticc(dataframe,items,plot)
+`ctticc(dataframe,items,plot)`
 
 The `dataframe` should contain binary responses.
 
 The `items` field indicates which columns should be included in the analysis. Use the concatenate function (e.g., `c()`) if you'd like to specify non-sequantial items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
 
-`plot` is logical with values of `TRUE` or `FALSE`.
+`plot` has values of `grid`, `separate`, or `together`. If using the `grid` specification, you will also need to specify nrow and ncol (for example, the screenshot reflected values of `3` and `2`).
 
 ## Future Advancements
 
-Please feel free to give us feedback or requests for changes.
+We may add a "pseudo" Test Information Function. Please also give us  feedback and requests for additions or changes.

@@ -56,20 +56,25 @@ library(gridExtra)
     grid.arrange(grobs=c(p), ncol = 2, rnow = 3)
         # come back and make sure that those 0.9-0.1 are right
 
+
+## trying to get third plot 5/30/23:
+## https://mpn.metworx.com/packages/ggplot2/3.2.1/reference/stat_function.html
+
+fun = function(x, PseudoA, PseudoB) {
+      ((1 / (1 + 2.71828^(-1.7*(PseudoA * (x-PseudoB))))))
     }
 
+library(tidyverse)
+
+df %>%
+  crossing(x = seq(-4, 4, .1)) %>%             # repeat each row for every occurence of x
+  mutate(y = fun(x, PseudoA, PseudoB)) %>%    # compute y values
+  ggplot(aes(x, y, color = inum)) +
+  geom_line() +
+  scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
+  labs(y = "p(1.0)",
+       x = "")
 
 
-p <- Map(function(A, B) {
-  ggplot() +
-    ylim(0,1)+
-    ylab("p(1.0)")+
-    geom_function(fun = function(x) {
-      c + ((1 - c) * (1 / (1 + 2.71828^(-1.7*(A * (x-B))))))
-    }) +
-    scale_x_continuous(limits=c(-4,4), labels=c("Low ability","","Medium ability","","High ability"))+
-    theme(legend.position="top")
 
-}, df$PseudoA, df$PseudoB)
 
-p
