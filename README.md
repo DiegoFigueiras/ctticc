@@ -6,16 +6,9 @@ A handy compilation of how to interpret IRT parameters is [located here](https:/
 
 |   Quick Links  |
 |:-------|
-| [**Plot Screenshots**](https://github.com/MontclairML/ctticc#Plot-Screenshots) |
 | [**How to Use**](https://github.com/MontclairML/ctticc#How-to-use) |
+| [**Plot Screenshots**](https://github.com/MontclairML/ctticc#Plot-Screenshots) |
 | [**Future Advancements**](https://github.com/MontclairML/ctticc#Future-advancements) |
-
-
-## Plot Screenshots
-
-| `separate` | `grid` | `together` |
-|:---------------:|:---------------------:|:---------------------:|
-|![](separate.png) | ![](grid.png) | ![](together.png) 
 
 ## How to Use
 
@@ -25,13 +18,19 @@ Next, load the package via `library(ctticc)`
 
 The function specification is:
 
-`ctticc(dataframe,items,plot)`
+`ctticc(dataframe, items, plot, nrow, ncol)`
 
 The `dataframe` should contain binary responses.
 
-The `items` field indicates which columns should be included in the analysis. Use the concatenate function (e.g., `c()`) if you'd like to specify non-sequantial items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
+The `items` field indicates which columns should be included in the analysis. Use the concatenate function if you'd like to specify non-sequential items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
 
-`plot` has values of `grid`, `separate`, or `together`. If using the `grid` specification, you will also need to specify nrow and ncol (for example, the screenshot reflected values of `3` and `2`).
+`plot` has values of `grid`, `separate`, or `together`. If using the `grid` specification, you will also need to specify nrow and ncol (for example, the [`grid` screenshot](https://github.com/MontclairML/ctticc#Plot-Screenshots) reflects values of `3` and `2`).
+
+## Plot Screenshots
+
+| `separate` | `grid` | `together` |
+|:---------------:|:---------------------:|:---------------------:|
+|![](separate.png) | ![](grid.png) | ![](together.png) 
 
 ## Future Advancements
 
