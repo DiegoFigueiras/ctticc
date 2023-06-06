@@ -1,6 +1,8 @@
-ctticc<-function(data, item, plot, ncol=2, nrow=3){
+ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
   library(psych)
-
+  library(ggplot2)
+  library(gridExtra)
+  library(tidyverse)
   pseudob<-0 #JUST CREATING A PLACEHOLDER FOR pseudob SO THE FUNCTION BELOW CAN RUN
   ahat<-function(x){
     r<-(((2.71828)^x)-(1/(2.71828)^x))/(2.71828-(2.71828)^x)
@@ -39,7 +41,7 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
         ylim(0,1)+
         geom_function(fun = function(x) {
           c + ((1 - c) * (1 / (1 + 2.71828^(-1.7*(A * (x-B))))))
-        }) +
+        }, lwd=1.25) +
         scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
         labs(
              y = "p(1.0)",
@@ -55,16 +57,20 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
 
 
   if(plot=="together"){ #type of plot2: all ICCs are plotted in the same figure
-    p<-0
-    eq<- function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[1]*(x-df$PseudoB[1]))))))}
-    p<-curve(eq, col="white", xlim=c(-4,4),ylim=c(0,1), xlab="Level of Trait", ylab="p(1.0)")
-    colors<-rainbow(n = length(item))
-    for(i in item){
-      eq<-function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(df$PseudoA[i]*(x-df$PseudoB[i]))))))}
-      p[i]<-curve(eq, col=colors[i], xlim=c(-4,4), ylim=c(0,1), main="Item Characteristic Curve", add=TRUE)
-      p
-      legend(x=-4, y=1, legend=colnames(data[item]), fill=colors[length(item)], pt.cex=0.5)
+    fun = function(x, PseudoA, PseudoB) {
+      ((1 / (1 + 2.71828^(-1.7*(PseudoA * (x-PseudoB))))))
     }
+
+
+    p<-df[item,] %>%
+      crossing(x = seq(-4, 4, .1)) %>%             # repeat each row for every occurence of x
+      mutate(y = fun(x, PseudoA, PseudoB)) %>%    # compute y values
+      ggplot(aes(x, y, color = inum)) +
+      geom_line(linewidth=1.25) +
+      scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
+      labs(y = "p(1.0)",
+           x = "")
+    print(p)
 
   }
 
@@ -74,7 +80,7 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
         ylim(0,1)+
         geom_function(fun = function(x) {
           c + ((1 - c) * (1 / (1 + 2.71828^(-1.7*(A * (x-B))))))
-        }) +
+        }, lwd=1.25) +
         scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
         labs(y = "p(1.0)",
            color="Item =")+
@@ -83,7 +89,7 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
     }, df$PseudoA, df$PseudoB, df$inum)
 
 
-    grid.arrange(grobs=c(p[item]), ncol=ncol, nrow=nrow)
+    grid.arrange(grobs=c(p[item]), nrow=nrow, ncol=ncol)
 
   }
 
@@ -91,7 +97,4 @@ ctticc<-function(data, item, plot, ncol=2, nrow=3){
 
   return(output)
 }
-
-data<-read.csv("testdata.csv")
-ctticc(data, 7:10, plot="grid", ncol=2,nrow=2)
 
