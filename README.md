@@ -20,7 +20,7 @@ The function specification is:
 
 `ctticc(dataframe, items, plot, nrow, ncol)`
 
-The `dataframe` should contain binary responses from all items comprising the unidimensional scale. If you have additional variable information in your dataframe (e.g., respondent identifiers, demographics, or variables unrelated to the unidimensional scale), use square brackets `[]` to isolate your test items here.
+The `dataframe` should contain binary responses from all items comprising the unidimensional scale. If you have additional variable information in your dataframe (e.g., respondent identifiers, demographics, or variables unrelated to the unidimensional scale), use square brackets `[]` to isolate your test items within your larger dataframe.
 
 The `items` field indicates which columns should be presented visually. Use the concatenate function if you'd like to specify non-sequential items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
 
