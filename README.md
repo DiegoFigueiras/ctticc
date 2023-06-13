@@ -34,4 +34,7 @@ The `items` field indicates which columns should be presented visually. Use the 
 
 ## Future Advancements
 
-We may add a "pseudo" Test Information Function. Please also give us  feedback and requests for additions or changes.
++ The current "together" plot renders as a plotly object - if someone would like a more "exportable" visual, we may add a fourth plot option (e.g., static instead of dynamic).  
++ We may add a "pseudo" Test Information Function.  
+
+Please also give us  feedback and requests for additions or changes.
