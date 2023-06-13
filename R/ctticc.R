@@ -66,6 +66,7 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
       crossing(x = seq(-4, 4, .1)) %>%             # repeat each row for every occurence of x
       mutate(y = fun(x, PseudoA, PseudoB)) %>%    # compute y values
       ggplot(aes(x, y, color = inum)) +
+      ylim(0,1)+
       geom_line(linewidth=1.25) +
       scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
       labs(y = "p(1.0)",
