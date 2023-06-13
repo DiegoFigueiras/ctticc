@@ -3,6 +3,7 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
   library(ggplot2)
   library(gridExtra)
   library(tidyverse)
+  library(plotly)
   pseudob<-0 #JUST CREATING A PLACEHOLDER FOR pseudob SO THE FUNCTION BELOW CAN RUN
   ahat<-function(x){
     r<-(((2.71828)^x)-(1/(2.71828)^x))/(2.71828-(2.71828)^x)
@@ -71,7 +72,8 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
       scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
       labs(y = "p(1.0)",
            x = "")
-    print(p)
+
+    print(ggplotly(p, tooltip=c("colour")))
 
   }
 
@@ -98,4 +100,5 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
 
   return(output)
 }
+
 
