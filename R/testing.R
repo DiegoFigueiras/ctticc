@@ -5,6 +5,7 @@ data<-read.csv("testdata.csv")
   library(Rmisc)
   library(cowplot)
 library(gridExtra)
+library(tidyverse)
   pseudob<-0 #JUST CREATING A PLACEHOLDER FOR pseudob SO THE FUNCTION BELOW CAN RUN
   ahat<-function(x){
     r<-(((2.71828)^x)-(1/(2.71828)^x))/(2.71828-(2.71828)^x)
@@ -26,6 +27,14 @@ library(gridExtra)
   pseudob<-df$PseudoB[1:5]
   pseudoa<-df$PseudoA[1:5]
   df$inum<-row.names(df)
+  df %>% filter(inum==item)%>%
+    crossing(x = seq(-4, 4, .1)) %>%             # repeat each row for every occurence of x
+    mutate(y = fun(x, PseudoA, PseudoB)) %>%    # compute y values
+    ggplot(aes(x, y, color = inum)) +
+    geom_line() +
+    scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
+    labs(y = "p(1.0)",
+         x = "")
 
   eq <- function(x){c + ((1-c)*(1/(1+2.71828^(-1.7*(pseudoa*(x-pseudob))))))}          #FUNCTION THAT CREATES ICC BASED ON pseudob AND pseudoa
   output<-cbind(pseudob, pseudoa)
