@@ -24,13 +24,13 @@ The `dataframe` should contain binary responses from all items comprising the un
 
 The `items` field indicates which columns should be presented visually. Use the concatenate function if you'd like to specify non-sequential items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
 
-`plot` has values of `grid`, `separate`, or `together`. If using the `grid` specification, you will also need to specify nrow and ncol (for example, the [`grid` screenshot](https://github.com/MontclairML/ctticc#Plot-Screenshots) reflects values of `3` and `2`).
+`plot` has values of `together`, `grid`, or `separate`. The default plot is `together`; specifying `ctticc(dataframe)` will present the `together` plot for all variables within the dataframe. If using the `grid` specification, you will also need to specify nrow and ncol (for example, the [`grid` screenshot](https://github.com/MontclairML/ctticc#Plot-Screenshots) reflects values of `3` and `2`).
 
 ## Plot Screenshots
 
-| `separate` | `grid` | `together` |
+| `together` | `grid` | `separate` |
 |:---------------:|:---------------------:|:---------------------:|
-|![](separate.png) | ![](grid.png) | ![](together.png) 
+|![](together.png) | ![](grid.png) | ![](separate.png) 
 
 ## Future Advancements
 
