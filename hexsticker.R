@@ -7,7 +7,8 @@ library(tidyverse)
 
 ICCimage1 <- image_read("together.png")   ## package plots
 ICCimage2 <- image_read("robin.png")      ## cartoon
-ICCimage3 <- image_read("routerbit.PNG")      ## ogive router bit
+ICCimage3 <- image_read("routerbit.PNG")  ## ogive router bit
+ICCimage4 <- image_read("iccs.PNG")
 
 sticker(subplot=ICCimage1,
         package="ctticc",
@@ -66,6 +67,26 @@ sticker(subplot=ICCimage3,
         u_size = 3.5,                     ## u = url
         u_color = "white",
         spotlight = T
+) %>% print()
+
+
+sticker(subplot=ICCimage4,
+        package="ctticc4",
+        s_width=1.2,                    ## s = image
+        s_height=.8,
+        s_x = 1,
+        s_y = .95,
+        p_size = 20,                    ## p = package name
+        p_color = "black",
+        p_x = 1,
+        p_y = 1.6,
+        h_fill = "red",             ## h = border
+        h_color = "black",
+        h_size = 2.2,
+        url="https://github.com/MontclairML/ctticc",
+        u_size = 3,                     ## u = url
+        u_color = "black",
+        spotlight = F
 ) %>% print()
 
 
