@@ -9,6 +9,7 @@ ICCimage1 <- image_read("together.png")   ## package plots
 ICCimage2 <- image_read("robin.png")      ## cartoon
 ICCimage3 <- image_read("routerbit.PNG")  ## ogive router bit
 ICCimage4 <- image_read("iccs.PNG")
+ICCimage5 <- image_read("Cartoon_Penguin_clip_art.svg")
 
 sticker(subplot=ICCimage1,
         package="ctticc",
@@ -88,5 +89,25 @@ sticker(subplot=ICCimage4,
         u_color = "black",
         spotlight = F
 ) %>% print()
+
+sticker(subplot=ICCimage5,
+        package="ctticc5",
+        s_width=1.4,                    ## s = image
+        s_height=1,
+        s_x = 1,
+        s_y = .9,
+        p_size = 20,                    ## p = package name
+        p_color = "black",
+        p_x = 1,
+        p_y = 1.6,
+        h_fill = "white",             ## h = border
+        h_color = "black",
+        h_size = 2.2,
+        url="https://github.com/MontclairML/ctticc",
+        u_size = 3,                     ## u = url
+        u_color = "black",
+        spotlight = F
+) %>% print()
+
 
 
