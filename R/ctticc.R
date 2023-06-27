@@ -8,7 +8,7 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
   ahat<-function(x){
     r<-(((2.71828)^x)-(1/(2.71828)^x))/(2.71828-(2.71828)^x)
 
-    ((0.51+(0.02*abs(pseudob))+(0.301*pseudob^2))*x)+((0.57-(0.009*abs(pseudob))+(0.19*pseudob^2))*r)
+    (((0.51+(0.02*abs(pseudob))+(0.301*pseudob^2))*x)+((0.57-(0.009*abs(pseudob))+(0.19*pseudob^2))*r)*1.71633)
 
   }#FUNCTION TO ESTIMATE THE CTT-A STATISTIC, WHICH IS THE EQUIVALENT TO THE DISCRIMINATION STATISTIC IN IRT
 
@@ -102,4 +102,4 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
 }
 
 
-ctticc(data)
+
