@@ -29,7 +29,7 @@ ncol=3)
   {
 %%     ~~Describe \code{x} here~~
 }
-}
+
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
