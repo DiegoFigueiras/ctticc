@@ -72,7 +72,7 @@ sticker(subplot=ICCimage3,
 
 
 sticker(subplot=ICCimage4,
-        package="ctticc4",
+        package="ctticc",
         s_width=1.2,                    ## s = image
         s_height=.8,
         s_x = 1,
@@ -81,7 +81,7 @@ sticker(subplot=ICCimage4,
         p_color = "black",
         p_x = 1,
         p_y = 1.6,
-        h_fill = "red",             ## h = border
+        h_fill = "white",             ## h = border
         h_color = "black",
         h_size = 2.2,
         url="https://github.com/MontclairML/ctticc",
