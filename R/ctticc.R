@@ -101,5 +101,3 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
 }
 
 
-ctticc(set1
-       )
