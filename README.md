@@ -24,11 +24,11 @@ Next, load the package via `library(ctticc)`
 
 The function specification is:
 
-`ctticc(dataframe, items, plot, nrow, ncol)`
+`ctticc(dataframe, item, plot, nrow, ncol)`
 
 The `dataframe` should contain binary responses from all items comprising the unidimensional scale. If you have additional variable information in your dataframe (e.g., respondent identifiers, demographics, or variables unrelated to the unidimensional scale), use square brackets `[]` to isolate your test items within your larger dataframe.
 
-The `items` field indicates which columns should be presented visually. Use the concatenate function if you'd like to specify non-sequential items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
+The `item` field indicates which columns should be presented visually. Use the concatenate function if you'd like to specify non-sequential items (for example, `c(1,4,7)`) would present ICCs for data columns 1, 4, and 7.
 
 `plot` has values of `together`, `grid`, or `separate`. The default plot is `together`; specifying `ctticc(dataframe)` will present the `together` plot for all variables within the dataframe. If using the `grid` specification, you will also need to specify nrow and ncol (for example, the [`grid` screenshot](https://github.com/MontclairML/ctticc#Plot-Screenshots) reflects values of `3` and `2`).
 
