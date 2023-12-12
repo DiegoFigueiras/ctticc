@@ -1,0 +1,27 @@
+
+/* links */
+
+a,
+a:visited {
+  color: #343c56;
+  text-decoration: underline;
+}
+
+a:hover,
+a:focus {
+  color: #808080;
+}
+
+a > code {
+  color: #808080;
+  text-decoration: none;
+}
+
+.inverse a {
+  color: #808080;
+}
+
+.inverse a:hover,
+.inverse a:focus {
+  color: #808080;
+}
