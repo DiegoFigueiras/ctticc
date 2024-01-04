@@ -16,6 +16,7 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+
 ```
 
 
@@ -29,7 +30,7 @@ style="position:absolute; right:50px; bottom:50px;">
 ---
 class: inverse, left, top
 
-# Description of package
+# Description
 
 .pull-left[`ctticc` produces visual item characteristic curves from classic test statistics used in classroom applications.
 
@@ -41,7 +42,7 @@ Test administrators recieve feedback regarding item performance:
 ]
 
 .pull-right[
-```{r plot2, echo=FALSE, message=FALSE, warning=FALSE}
+```{r plot2, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 
 ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
   library(psych)
@@ -87,8 +88,9 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
         geom_function(fun = function(x) {
           c + ((1 - c) * (1 / (1 + 2.71828^(-1.7*(A * (x-B))))))
         }, lwd=1.25) +
-        scale_x_continuous(limits=c(-4,4), labels=c("Low Test Score","","Average Test Score","","High Test Score"))+
+        scale_x_continuous(limits=c(-4,4), labels=c("Low","","Average","","High"))+
         labs(
+              x="Test Score",
              y = "p(1.0)",
              color="Item =")+
         theme(legend.position="top")
@@ -147,18 +149,21 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
 }
 
 
-#library(ctticc)
+library(ctticc)
 data(testdata)
-p<-ctticc(data, plot="separate", item=1)
-p
+png("diego.png")
+ctticc(data, plot="separate", item=1)
+dev.off()
+
 ```
+![](diego.png)
 ]
 
 ---
 
 # Application
 
-This is most informative when item characteristics are plotted simulataneously:
+The visual presentation is most informative when item characteristics are plotted simulataneously:
 
 ```{r plot, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.align='left'}
 
@@ -276,9 +281,41 @@ p
 
 # Interpretation
 
-The test administrator can see that `item 4` and `item 6` are not discriminating effectively, and `item 3` is in serious need of revision or exclusion:
+The test administrator receives visual feedback that `item 7` is the easiest, `item 1` is the most difficult, `item 4` and `item 6` are not  discriminating well, and something is "wrong" with `item 3`. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.align='left'}
 p
 ```
 
+
+---
+
+# Actions to take
+
+The order of administration of `item 1` and `item 7` should be swapped. `Item 4` and `item 6` should be evaluated for *relevance to the broader test content*. `Item 3` is either a scoring key mistake or should be dropped. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.align='left'}
+p
+```
+
+
+---
+
+# For Sakai 
+![](https://cdn.elearningindustry.com/wp-content/uploads/2022/12/a3ef8c2c97b3d8c819f5a2d5bce9a0db.png)
+
+We would like to use these visuals for improving learning management systems. 
+
+Our contact information is:
+
+[Diego Figueiras](mailto:diego.figueiras@outlook.com)
+
+[John Kulas](mailto:jtkulas@ergreports.com)
+
+---
+
+# More detailed information is avaiable in our write-up:
+
+[Paper](ICC_project.pdf)
+
+[![](paper.JPG)](ICC_project.pdf){height=100, width=200}
