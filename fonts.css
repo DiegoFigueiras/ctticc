@@ -1,0 +1,57 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Muli:600,700,800);
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400');
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Upright:700');
+
+
+.Erg {
+  font-family: 'Georgia, serif';
+  color: #393DA8;
+}
+
+.eRg {
+  font-family: 'Georgia, serif';
+  color: #1A1E87;
+}
+
+.erG {
+  font-family: 'Georgia, serif';
+  color: #01055E;
+}
+
+.mppaw1 {
+  color: #0e9345;
+}
+
+.mppaw2 {
+  color: #7cc79b;
+}
+
+.mppaw3 {
+  color: #878a88;
+}
+
+.mppaw4 {
+  color: #7b7c7c;
+}
+
+.LARGE {
+  font-size: 300%;
+}
+
+.kindabig {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.spssred {
+  color: #e10000;
+}
+
+.rblue {
+  color: #4287f5;
+}
+
+.difficult {
+  background-color: #e10000;
+}

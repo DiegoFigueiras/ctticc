@@ -5,7 +5,7 @@ author: "Diego Figueiras & John Kulas"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
-#    css: "presentation.css"
+    css: "fonts.css"
     seal: false
     lib_dir: libs
     nature:
@@ -38,7 +38,7 @@ class: inverse, left, top
   + *p*-values
   + corrected item total correlations
   
-Test administrators recieve feedback regarding item performance:
+Test administrators receive *graphical* feedback regarding item performance:
 ]
 
 .pull-right[
@@ -163,7 +163,7 @@ dev.off()
 
 # Application
 
-The visual presentation is most informative when item characteristics are plotted simulataneously:
+The visual representations are most informative when item characteristics are plotted simulataneously:
 
 ```{r plot, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.align='left'}
 
@@ -281,7 +281,7 @@ p
 
 # Interpretation
 
-The test administrator receives visual feedback that `item 7` is the easiest, `item 1` is the most difficult, `item 4` and `item 6` are not  discriminating well, and something is "wrong" with `item 3`. 
+The test administrator receives visual feedback that `item 7` is the easiest, .difficult[item 1] is the most difficult, `item 4` and `item 6` are not  discriminating well, and something is "wrong" with `item 3`. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.align='left'}
 p
