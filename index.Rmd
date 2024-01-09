@@ -5,7 +5,7 @@ author: "Diego Figueiras & John Kulas"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
-    css: "fonts.css"
+    #css: "presentations.css"
     seal: false
     lib_dir: libs
     nature:
@@ -302,9 +302,11 @@ p
 ---
 
 # For Sakai 
-![](https://cdn.elearningindustry.com/wp-content/uploads/2022/12/a3ef8c2c97b3d8c819f5a2d5bce9a0db.png)
+<img src="https://cdn.elearningindustry.com/wp-content/uploads/2022/12/a3ef8c2c97b3d8c819f5a2d5bce9a0db.png" width="220" height="200"  
+style="position:absolute; right:400px; bottom:100px;">
 
-We would like to use these visuals for improving learning management systems. 
+
+We would like to use these visuals for improving learning management systems. These visuals could be incorporated into either the "test & Quizzes" page, in Instructor View, or the "Statistics" page.
 
 Our contact information is:
 
@@ -314,8 +316,10 @@ Our contact information is:
 
 ---
 
-# More detailed information is avaiable in our write-up:
+# Supplementary information:
 
-[Paper](ICC_project.pdf)
+.pull-right[[![](paper.JPG)](ICC_project.pdf)]
 
-[![](paper.JPG)](ICC_project.pdf){height=100, width=200}
+.pull-left[More detailed information is available in our write-up (click on image to right)]
+ 
+
