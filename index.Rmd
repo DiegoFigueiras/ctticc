@@ -16,7 +16,7 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-
+library(fontawesome)
 ```
 
 ```{css, echo=FALSE}
@@ -362,6 +362,5 @@ Our contact information:
 
 [Diego Figueiras](mailto:diego.figueiras@outlook.com)  
 [John Kulas](mailto:jtkulas@ergreports.com)
-
  ]
 
