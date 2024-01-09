@@ -19,6 +19,42 @@ options(htmltools.dir.version = FALSE)
 
 ```
 
+```{css, echo=FALSE}
+.Large { 
+  font-size: 200%;
+}
+
+.large { 
+  font-size: 125%;
+}
+
+.seven { 
+  color: #2B91E4;
+  font-weight: bold;
+}
+
+.one { 
+  color: #E4412B;
+  font-weight: bold;
+}
+
+.four { 
+  color: #17AB3B;
+  font-weight: bold;
+}
+
+.six { 
+  color: #19CCE9;
+  font-weight: bold;
+}
+
+.three { 
+  color: #75A32D;
+  font-weight: bold;
+}
+
+```
+
 
 .pull-left[# `ctticc`: Visualizing Test Item Characteristics 
 ### [Diego Figueiras](https://github.com/MontclairML) <br>& [John Kulas](https://github.com/jtkulas)
@@ -32,11 +68,11 @@ class: inverse, left, top
 
 # Description
 
-.pull-left[`ctticc` produces visual item characteristic curves from classic test statistics used in classroom applications.
+.pull-left[`ctticc` produces visual item characteristic curves from classic test statistics used in quiz and testing applications.
 
 + Simple inputs are: 
   + *p*-values
-  + corrected item total correlations
+  + corrected item-total correlations
   
 Test administrators receive *graphical* feedback regarding item performance:
 ]
@@ -156,14 +192,14 @@ ctticc(data, plot="separate", item=1)
 dev.off()
 
 ```
-![](diego.png){height=50, width=200}
+![](diego.png)
 ]
 
 ---
 
 # Application
 
-The visual representations are most informative when item characteristics are plotted simulataneously:
+The graphical representations are most informative when item characteristics are plotted simulataneously:
 
 ```{r plot, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.align='left'}
 
@@ -281,7 +317,7 @@ p
 
 # Interpretation
 
-The test administrator receives visual feedback that `item 7` is the easiest, .difficult[item 1] is the most difficult, `item 4` and `item 6` are not  discriminating well, and something is "wrong" with `item 3`. 
+The test administrator here can extract that .seven[Item 7] is the easiest, .one[Item 1] is the most difficult, .four[Item 4] and .six[Item 6] are not  discriminating well, and something is "wrong" with .three[Item 3]. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.align='left'}
 p
@@ -292,7 +328,9 @@ p
 
 # Actions to take
 
-The order of administration of `item 1` and `item 7` should be swapped. `Item 4` and `item 6` should be evaluated for *relevance to the broader test content*. `Item 3` is either a scoring key mistake or should be dropped. 
++ The orders of administration of Item 1 and Item 7 should be swapped. 
++ Item 4 and Item 6 should be evaluated for *relevance to the broader test content*. 
++ Item 3 is either a scoring key mistake or should be dropped 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10, fig.align='left'}
 p
@@ -301,25 +339,29 @@ p
 
 ---
 
-# For Sakai 
-<img src="https://cdn.elearningindustry.com/wp-content/uploads/2022/12/a3ef8c2c97b3d8c819f5a2d5bce9a0db.png" width="220" height="200"  
-style="position:absolute; right:400px; bottom:100px;">
+# Implementation 
+<img src="https://cdn.elearningindustry.com/wp-content/uploads/2022/12/a3ef8c2c97b3d8c819f5a2d5bce9a0db.png" width="250" height="250"  
+style="position:absolute; left:100px; bottom:200px;">
 
+.pull-right[.large[
+We believe these visualizations are pedagogical tools that improve the user experience with learning management systems. 
 
-We would like to use these visuals for improving learning management systems. These visuals could be incorporated into either the "test & Quizzes" page, in Instructor View, or the "Statistics" page.
+For Sakai, these visuals could be incorporated into either the existing "Test & Quizzes (Instructor View)" or "Statistics" pages.]
+]
 
-Our contact information is:
-
-[Diego Figueiras](mailto:diego.figueiras@outlook.com)
-
-[John Kulas](mailto:jtkulas@ergreports.com)
 
 ---
 
-# Supplementary information:
+# Supplementary information
 
 .pull-right[[![](paper.JPG)](ICC_project.pdf)]
 
-.pull-left[More detailed information is available in our write-up (click on image to right)]
- 
+.pull-left[.Large[Technical information about the development of these visual aids is also available (click on image to right)]
+
+Our contact information:
+
+[Diego Figueiras](mailto:diego.figueiras@outlook.com)  
+[John Kulas](mailto:jtkulas@ergreports.com)
+
+ ]
 
