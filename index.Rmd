@@ -156,7 +156,7 @@ ctticc(data, plot="separate", item=1)
 dev.off()
 
 ```
-![](diego.png)
+![](diego.png){height=50, width=200}
 ]
 
 ---
