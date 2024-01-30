@@ -340,13 +340,13 @@ p
 ---
 
 # Implementation 
-<img src="https://cdn.elearningindustry.com/wp-content/uploads/2022/12/a3ef8c2c97b3d8c819f5a2d5bce9a0db.png" width="250" height="250"  
-style="position:absolute; left:100px; bottom:200px;">
+<img src="https://miro.medium.com/v2/resize:fit:1400/1*Fp4GIm568zHv17pgJTbxPQ.png" width="450" height="320"  
+style="position:absolute; left:-10px; bottom:150px;">
 
 .pull-right[.large[
-We believe these visualizations are pedagogical tools that improve the user experience with learning management systems. 
+These visualizations are pedagogical tools that can further enhance the *instructor experience* with learning management systems. 
 
-For Sakai, these visuals could be incorporated into either the existing "Test & Quizzes (Instructor View)" or "Statistics" pages.]
+Visual representations of item functioning provide information that all users (including statistics-avoidant) should feel comfortable consulting and acting on.]
 ]
 
 
