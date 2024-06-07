@@ -1,0 +1,37 @@
+---
+title: "CTTICC Dashboard"
+format: 
+  dashboard:
+    page-layout: custom
+server: shiny
+---
+
+```{r}
+library(ctticc)
+data(testdata)
+```
+
+Data file should contain only item responses. 
+
+```{r}
+#| panel: sidebar
+vars <- names(data) #read item names
+checkboxGroupInput("items", "Select Items", vars, "i1")
+```
+
+```{r}
+#| panel: fill
+plotOutput('plot1')
+```
+
+```{r}
+#| context: server
+selectedData <- reactive({
+    data[, input$items]
+  })
+
+
+output$plot1 <- renderPlot({
+  ctticc::ctticc(selectedData())
+})
+```
