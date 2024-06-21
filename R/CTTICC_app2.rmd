@@ -8,6 +8,7 @@ server: shiny
 
 ```{r}
 
+
 ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
   library(psych)
   library(ggplot2)
@@ -121,6 +122,7 @@ library(ctticc)
 library(plotly)
 library(shiny)
 as.data.frame(data(testdata))
+data<-data[1:20,1:5]
 
 ui<- fluidPage(
   fluidRow(
@@ -140,12 +142,13 @@ server<- function(input, output){
   })
 
   output$plot1 <- renderPlotly({
-    ctticc(selectedData(), plot="together")})
+    htmlwidgets::saveWidget(ctticc(selectedData(), plot="together"), file="plot.html")})
 
 }
 
 
 shinyApp(ui = ui, server = server)
+
 
 
 ```
