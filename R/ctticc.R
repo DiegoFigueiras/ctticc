@@ -1,3 +1,14 @@
+---
+title: "CTTICC Dashboard"
+format: html
+server: shiny
+---
+
+
+
+
+
+
 ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
   library(psych)
   library(ggplot2)

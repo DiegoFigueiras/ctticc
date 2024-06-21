@@ -112,8 +112,14 @@ ctticc<-function(data, item, plot="together", nrow=2, ncol=3){
 library(ctticc)
 library(plotly)
 library(shiny)
-as.data.frame(data(testdata))
-data<-data[1:20,1:5]
+#as.data.frame(data(testdata))
+
+data<-data.frame(
+  i1=c(1,0,1,0,1,1,1,0),
+  i2=c(0,1,1,1,0,0,0,0)
+)
+
+#plot_ly(data, x=~i1, y=~i2)
 
 ui<- fluidPage(
   fluidRow(
@@ -133,7 +139,7 @@ server<- function(input, output){
   })
 
   output$plot1 <- renderPlotly({
-    ctticc(selectedData(), plot="together")})
+    plot_ly(selectedData(), x=~i1, y=~i2)})
 
 }
 
