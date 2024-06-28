@@ -47,13 +47,11 @@ ctticc <- function(data, items, plot="together", nrow=2, ncol=3) {
   return(NULL)
 }
 
-#as.data.frame(data(testdata))
-
-
 ui <- fluidPage(
   fluidRow(
     sidebarPanel(
-      checkboxGroupInput("items", "Select Items", choices = colnames(data), selected = colnames(data))
+      fileInput("file", "Upload CSV File", accept = ".csv"),
+      checkboxGroupInput("items", "Select Items", choices = NULL)
     ),
     mainPanel(
       plotlyOutput('plot1')
@@ -61,13 +59,25 @@ ui <- fluidPage(
   )
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
+  data <- reactive({
+    req(input$file)
+    read.csv(input$file$datapath)
+  })
+
+  observe({
+    req(data())
+    updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = colnames(data()))
+  })
+
   selectedData <- reactive({
-    data[, input$items, drop = FALSE]
+    req(data())
+    data()[, input$items, drop = FALSE]
   })
 
   output$plot1 <- renderPlotly({
-    ctticc(selectedData(), plot = "together")
+    req(selectedData())
+    ctticc(selectedData(), items = input$items, plot = "together")
   })
 }
 
