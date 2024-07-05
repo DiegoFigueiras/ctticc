@@ -51,10 +51,14 @@ ui <- fluidPage(
   fluidRow(
     sidebarPanel(
       fileInput("file", "Upload CSV File", accept = ".csv"),
+      actionButton("deselect_all", "Deselect All"),
       checkboxGroupInput("items", "Select Items", choices = NULL)
     ),
     mainPanel(
-      plotlyOutput('plot1')
+      plotlyOutput('plot1'),
+      p("Make sure your data is structured such that each column is an item in your assessment and each row a respondent. Scores should be binary, 1 and 0."),
+      p("The Item Characteristic Curves are replotted each time you select or de-select an item. User may therefore be interested in gaining visual feedback of item functioning within unique sets of items. When developing subtests this tool should be considered benefitial for making item retention or deletion decisions at the subtest level."),
+
     )
   )
 )
@@ -68,6 +72,10 @@ server <- function(input, output, session) {
   observe({
     req(data())
     updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = colnames(data()))
+  })
+
+  observeEvent(input$deselect_all, {
+    updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = character(0))
   })
 
   selectedData <- reactive({
