@@ -4,6 +4,8 @@ library(gridExtra)
 library(tidyverse)
 library(plotly)
 library(shiny)
+library(shinythemes)
+library(shinydashboard)
 
 ctticc <- function(data, items, plot="together", nrow=2, ncol=3) {
   pseudob <- data.frame(qnorm(colMeans(data, na.rm=TRUE)))*-1
@@ -38,7 +40,17 @@ ctticc <- function(data, items, plot="together", nrow=2, ncol=3) {
       ylim(0, 1) +
       geom_line(linewidth = 1.25) +
       scale_x_continuous(limits = c(-4, 4), labels = c("Low Test Score", "", "Average Test Score", "", "High Test Score")) +
-      labs(y = "p(1.0)", x = "")
+      labs(y = "p(1.0)", x = "") +
+      theme_minimal(base_family = "Arial", base_size = 14) +
+      theme(panel.background = element_rect(fill = "black"),
+            plot.background = element_rect(fill = "black"),
+            panel.grid.major = element_line(color = "gray"),
+            panel.grid.minor = element_line(color = "gray"),
+            axis.text = element_text(color = "white"),
+            axis.title = element_text(color = "white"),
+            legend.background = element_rect(fill = "black"),
+            legend.text = element_text(color = "white"),
+            legend.title = element_text(color = "white"))
 
     q <- ggplotly(p, tooltip = c("colour"))
     return(q)
@@ -47,17 +59,44 @@ ctticc <- function(data, items, plot="together", nrow=2, ncol=3) {
   return(NULL)
 }
 
-ui <- fluidPage(
-  fluidRow(
-    sidebarPanel(
+
+
+
+ctttic <- function(data, items){
+
+
+
+
+
+}
+
+
+
+
+
+ui <- dashboardPage(
+  dashboardHeader(title = "Item Characteristic Curve Dashboard"),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
       fileInput("file", "Upload CSV File", accept = ".csv"),
       actionButton("deselect_all", "Deselect All"),
-      checkboxGroupInput("items", "Select Items", choices = NULL, inline=FALSE)
+      checkboxGroupInput("items", "Select Items", choices = NULL, inline=FALSE),
+      valueBoxOutput("numItems", width = 12)
+    )
+  ),
+  dashboardBody(
+    fluidRow(
+      plotlyOutput('plot1')
     ),
-    mainPanel(
-      plotlyOutput('plot1'),
+    fluidRow(
       p("Make sure your data is structured such that each column is an item in your assessment and each row a respondent. Scores should be binary, 1 and 0."),
-      p("The Item Characteristic Curves are replotted each time you select or de-select an item. User may therefore be interested in gaining visual feedback of item functioning within unique sets of items. When developing subtests this tool should be considered benefitial for making item retention or deletion decisions at the subtest level."),
+      p("The Item Characteristic Curves are replotted each time you select or de-select an item. User may therefore be interested in gaining visual feedback of item functioning within unique sets of items. When developing subtests this tool should be considered beneficial for making item retention or deletion decisions at the subtest level."),
+      p(withMathJax(includeMarkdown("$I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
+      p(withMathJax(includeMarkdown("where: $a_i$ is the discrimination paramter for item $i$:"))),
+      p(withMathJax(includeMarkdown("$P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
+      p(withMathJax(includeMarkdown("$Q_i(\\theta)=1-P_i(\\theta),$"))),
+      p(withMathJax(includeMarkdown("$\\theta$ is the ability level of interest.")))
 
     )
   )
@@ -81,6 +120,17 @@ server <- function(input, output, session) {
   selectedData <- reactive({
     req(data())
     data()[, input$items, drop = FALSE]
+  })
+
+  output$numItems <- renderValueBox({
+    req(data())
+    num_items <- ncol(selectedData())
+    valueBox(
+      value = num_items,
+      subtitle = "Number of Items",
+      icon = icon("list"),
+      color = "blue"
+    )
   })
 
   output$plot1 <- renderPlotly({
