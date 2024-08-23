@@ -190,8 +190,14 @@ ui <- dashboardPage(
       plotlyOutput('plot1')
     ),
     fluidRow(
-      plotlyOutput('tif', width="50%"),
-      plotlyOutput('iif', width="50%")
+      column(
+        width=6,
+        plotlyOutput('tif'),
+      ),
+      column(
+        width=6,
+        plotlyOutput('iif')
+      )
 
 
     )
