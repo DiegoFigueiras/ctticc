@@ -5,7 +5,7 @@ library(tidyverse)
 library(plotly)
 library(shiny)
 library(shinythemes)
-library(shinydashboard)  ## look for theming options via `shinydashboard`
+library(shinydashboard)
 
 ctticc <- function(data, items, plot="together", nrow=2, ncol=3) {
   pseudob <- data.frame(qnorm(colMeans(data, na.rm=TRUE)))*-1
@@ -168,43 +168,21 @@ ctttif <- function(data, items, plot="together") {
 
 
 ui <- dashboardPage(
-  skin="black",
-  dashboardHeader(title = "Item Characteristic Curve Dashboard",
-                  titleWidth = 650),
+  dashboardHeader(title = "Item Characteristic Curve Dashboard"),
   dashboardSidebar(
     sidebarMenu(
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
       fileInput("file", "Upload CSV File", accept = ".csv"),
       actionButton("deselect_all", "Deselect All"),
       checkboxGroupInput("items", "Select Items", choices = NULL, inline=FALSE),
-      valueBoxOutput("numItems", width = 12)
-    )
-  ),
-  dashboardBody(
-    tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
-    ),
-    fluidRow(
-      plotlyOutput('plot1'),
-      height="400px"
-    ),
-    fluidRow(
-      box(
-        title = "Instructions:",
-        background="black",
       valueBoxOutput("numItems", width = 12),
       p("Make sure your data is structured such that each column is an item in your assessment and each row a respondent. Scores should be binary, 1 and 0."),
-      p("The Item Characteristic Curves are replotted each time you select or de-select an item. User may therefore be interested in gaining visual feedback of item functioning within unique sets of items. When developing subtests this tool should be considered beneficial for making item retention or deletion decisions at the subtest level.")),
-
-      box(
-        title = "Item Information Functions:",
-        background="black",
+      p("The Item Characteristic Curves are replotted each time you select or de-select an item. User may therefore be interested in gaining visual feedback of item functioning within unique sets of items. When developing subtests this tool should be considered beneficial for making item retention or deletion decisions at the subtest level."),
       p(withMathJax(includeMarkdown("$I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
       p(withMathJax(includeMarkdown("where: $a_i$ is the discrimination paramter for item $i$:"))),
       p(withMathJax(includeMarkdown("$P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
       p(withMathJax(includeMarkdown("$Q_i(\\theta)=1-P_i(\\theta),$"))),
       p(withMathJax(includeMarkdown("$\\theta$ is the ability level of interest.")))
-      )
     )
   ),
   dashboardBody(
@@ -276,14 +254,3 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 
 
-# data<-read.csv("testdata2.csv")
-# cttiif(data)
-# ctticc(data)
-#
-#
-# ctttif(data, plot="together")
-#
-#
-#
-# library(ctticc)
-# boo<-ctticc::ctticc(data)
