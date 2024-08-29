@@ -40,7 +40,7 @@ ctticc <- function(data, items, plot="together", nrow=2, ncol=3) {
       ylim(0, 1) +
       geom_line(linewidth = 1.25) +
       scale_x_continuous(limits = c(-4, 4), labels = c("Low Test Score", "", "Average Test Score", "", "High Test Score")) +
-      labs(y = "p(1.0)", x = "", color = "Item") +
+      labs(y = "p(1.0)", x = "") +
       theme_minimal(base_family = "Arial", base_size = 14) +
       theme(panel.background = element_rect(fill = "black"),
             plot.background = element_rect(fill = "black"),
@@ -90,10 +90,10 @@ cttiif <- function(data, items, plot="together") {
       crossing(x = seq(-4, 4, .1)) %>%
       mutate(y = fun(x, PseudoA, PseudoB)) %>%
       ggplot(aes(x, y, color = inum)) +
-      #ylim(0, 1) +
+      ylim(0, 1) +
       geom_line(linewidth = 1.25) +
       scale_x_continuous(limits = c(-4, 4), labels = c("Low Test Score", "", "Average Test Score", "", "High Test Score")) +
-      labs(y = "p(1.0)", x = "", color = "Item") +
+      labs(y = "p(1.0)", x = "") +
       theme_minimal(base_family = "Arial", base_size = 14) +
       theme(panel.background = element_rect(fill = "black"),
             plot.background = element_rect(fill = "black"),
@@ -143,8 +143,7 @@ ctttif <- function(data, items, plot="together") {
       group_by(x)%>%
       summarise(y = sum(y))%>%
       ggplot(aes(x, y)) +
- #    scale_y_continuous(limits = function(lim){c(0,lim[1]+2)}) +
- #    ylim(0, 1.5) +
+      ylim(0, 1.5) +
       geom_line(linewidth = 1.25, color="blue") +
       scale_x_continuous(limits = c(-4, 4), labels = c("Low Test Score", "", "Average Test Score", "", "High Test Score")) +
       labs(y = "p(1.0)", x = "") +
@@ -169,78 +168,41 @@ ctttif <- function(data, items, plot="together") {
 
 
 ui <- dashboardPage(
-  dashboardHeader(title = "Item Characteristic Curve Dashboard",
-                  titleWidth=400),
-
+  dashboardHeader(title = "Item Characteristic Curve Dashboard"),
   dashboardSidebar(
-    width=350,
-    tags$style(".align_class {
-                margin-left: 10px;
-                margin-right: 10% !important;
-    }"),
     sidebarMenu(
-      br(),
-
-
-      div(class='align_class', "Make sure your data is structured such that", br(),
-                              "each column is an item in your assessment and", br(),
-                              "each row a respondent.", br(),
-                              br(),
-                              "Scores should be binary: only 1's and 0's.",
-                              br(),
-                              br()),
-      menuItem("Data Controls:", tabName = "dashboard", icon = icon("dashboard")),
+      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
       fileInput("file", "Upload CSV File", accept = ".csv"),
       actionButton("deselect_all", "Deselect All"),
-      checkboxGroupInput("items", "Select Items", choices = NULL, inline=FALSE),
-      valueBoxOutput("numItems", width = 6),
-      br(),
-      br(),
-      br(),
-      br(),
-      br(),
-      br(),
-      br(),
-      br(),
-      div(class='align_class', "The Item Characteristic Curves are replotted", br(),
-                                "each time you select or de-select an item.", br(),
-                                "User may therefore be interested in gaining", br(),
-                                "visual feedback of item functioning within unique", br(),
-                                "sets of items.", br(),
-                                br(),
-                                "When developing subtests this tool should be", br(),
-                                "considered beneficial for making item retention", br(),
-                                "or deletion decisions at the subtest level."),
-      p(withMathJax(includeMarkdown("$I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
-      p(withMathJax(includeMarkdown("where: $a_i$ is the discrimination paramter for item $i$:"))),
-      p(withMathJax(includeMarkdown("$P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
-      p(withMathJax(includeMarkdown("$Q_i(\\theta)=1-P_i(\\theta),$"))),
-      p(withMathJax(includeMarkdown("$\\theta$ is the ability level of interest.")))
+      checkboxGroupInput("items", "Select Items", choices = NULL, inline = FALSE),
+      valueBoxOutput("numItems", width = 12),
+
+      div(style = "max-width: 200px; white-space: normal; overflow: hidden; padding: 5px;",
+          p("Make sure your data is structured such that each column is an item in your assessment and each row a respondent. Scores should be binary, 1 and 0."),
+          p("The Item Characteristic Curves are replotted each time you select or de-select an item. User may therefore be interested in gaining visual feedback of item functioning within unique sets of items. When developing subtests this tool should be considered beneficial for making item retention or deletion decisions at the subtest level."),
+          p(withMathJax(includeMarkdown("$I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
+          p(withMathJax(includeMarkdown("where: $a_i$ is the discrimination paramter for item $i$:"))),
+          p(withMathJax(includeMarkdown("$P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
+          p(withMathJax(includeMarkdown("$Q_i(\\theta)=1-P_i(\\theta),$"))),
+          p(withMathJax(includeMarkdown("$\\theta$ is the ability level of interest."))))
     )
   ),
-   dashboardBody(
-    fluidRow(
-          box(
-            title="Item Characteristic Curves",
-            solidHeader = TRUE,
-            collapsible = TRUE,
-            background = "black",
-            width=12,
-            plotlyOutput('plot1'))
-    ),
-    fluidRow(
-      box(title = "Test Information Function:",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          background="black",
-          plotlyOutput('tif')),
-      box(title = "Item Information Functions:",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          background="black",
-          plotlyOutput('iif'))
-
-
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "dashboard",
+              fluidRow(
+                column(width = 12, plotlyOutput('plot1', height = "500px"))
+              ),
+              fluidRow(
+                column(width = 6.5, plotlyOutput('tif', height = "500px")),
+                column(width = 6.5, plotlyOutput('iif', height = "500px"))
+              )
+      ),
+      tabItem(tabName = "info",
+              fluidRow(
+                p("hello world")
+              )
+      )
     )
   )
 )
@@ -257,7 +219,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$deselect_all, {
-    updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = character(0), inline=TRUE)
+    updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = character(0), inline = TRUE)
   })
 
   selectedData <- reactive({
@@ -271,26 +233,28 @@ server <- function(input, output, session) {
     valueBox(
       value = num_items,
       subtitle = "Number of Items",
+      icon = icon("list"),
       color = "blue"
     )
   })
 
   output$plot1 <- renderPlotly({
     req(selectedData())
-    ctticc(selectedData(), items = input$items, plot = "together")
+    plot <- ctticc(selectedData(), items = input$items, plot = "together")
+    plot %>% layout(margin = list(l = 0, r = 0, b = 0, t = 0))
   })
 
   output$tif <- renderPlotly({
     req(selectedData())
-    ctttif(selectedData(), items = input$items, plot = "together")
+    plot <- ctttif(selectedData(), items = input$items, plot = "together")
+    plot %>% layout(margin = list(l = 0, r = 0, b = 0, t = 0))
   })
 
   output$iif <- renderPlotly({
     req(selectedData())
-    cttiif(selectedData(), items = input$items, plot = "together")
+    plot <- cttiif(selectedData(), items = input$items, plot = "together")
+    plot %>% layout(margin = list(l = 0, r = 0, b = 0, t = 0))
   })
 }
 
 shinyApp(ui = ui, server = server)
-
-
