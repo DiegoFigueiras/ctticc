@@ -1,0 +1,13 @@
+name: TestItemCharacteristics
+title: TestItemCharacteristics
+username: diegofigueiras
+account: diegofigueiras
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12279792
+bundleId: 9020104
+url: https://diegofigueiras.shinyapps.io/TestItemCharacteristics/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ctticc.R|CTTICC_app_fileupload.R|CTTICC_app2.html|CTTICC_app2.R|CTTICC_app2.rmd|CTTICC_app2_small.R|dashboard.html|dashboard.qmd|replicating_baker.R|www/custom.css

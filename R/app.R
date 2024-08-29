@@ -174,32 +174,35 @@ ui <- dashboardPage(
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
       fileInput("file", "Upload CSV File", accept = ".csv"),
       actionButton("deselect_all", "Deselect All"),
-      checkboxGroupInput("items", "Select Items", choices = NULL, inline=FALSE),
+      checkboxGroupInput("items", "Select Items", choices = NULL, inline = FALSE),
       valueBoxOutput("numItems", width = 12),
-      p("Make sure your data is structured such that each column is an item in your assessment and each row a respondent. Scores should be binary, 1 and 0."),
-      p("The Item Characteristic Curves are replotted each time you select or de-select an item. User may therefore be interested in gaining visual feedback of item functioning within unique sets of items. When developing subtests this tool should be considered beneficial for making item retention or deletion decisions at the subtest level."),
-      p(withMathJax(includeMarkdown("$I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
-      p(withMathJax(includeMarkdown("where: $a_i$ is the discrimination paramter for item $i$:"))),
-      p(withMathJax(includeMarkdown("$P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
-      p(withMathJax(includeMarkdown("$Q_i(\\theta)=1-P_i(\\theta),$"))),
-      p(withMathJax(includeMarkdown("$\\theta$ is the ability level of interest.")))
+
+      div(style = "max-width: 200px; white-space: normal; overflow: hidden; padding: 5px;",
+          p("Make sure your data is structured such that each column is an item in your assessment and each row a respondent. Scores should be binary, 1 and 0."),
+          p("The Item Characteristic Curves are replotted each time you select or de-select an item. User may therefore be interested in gaining visual feedback of item functioning within unique sets of items. When developing subtests this tool should be considered beneficial for making item retention or deletion decisions at the subtest level."),
+          p(withMathJax(includeMarkdown("$I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
+          p(withMathJax(includeMarkdown("where: $a_i$ is the discrimination paramter for item $i$:"))),
+          p(withMathJax(includeMarkdown("$P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
+          p(withMathJax(includeMarkdown("$Q_i(\\theta)=1-P_i(\\theta),$"))),
+          p(withMathJax(includeMarkdown("$\\theta$ is the ability level of interest."))))
     )
   ),
   dashboardBody(
-    fluidRow(
-      plotlyOutput('plot1')
-    ),
-    fluidRow(
-      column(
-        width=6,
-        plotlyOutput('tif'),
+    tabItems(
+      tabItem(tabName = "dashboard",
+              fluidRow(
+                column(width = 12, plotlyOutput('plot1', height = "500px"))
+              ),
+              fluidRow(
+                column(width = 6.5, plotlyOutput('tif', height = "500px")),
+                column(width = 6.5, plotlyOutput('iif', height = "500px"))
+              )
       ),
-      column(
-        width=6,
-        plotlyOutput('iif')
+      tabItem(tabName = "info",
+              fluidRow(
+                p("hello world")
+              )
       )
-
-
     )
   )
 )
@@ -216,7 +219,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$deselect_all, {
-    updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = character(0), inline=TRUE)
+    updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = character(0), inline = TRUE)
   })
 
   selectedData <- reactive({
@@ -237,20 +240,21 @@ server <- function(input, output, session) {
 
   output$plot1 <- renderPlotly({
     req(selectedData())
-    ctticc(selectedData(), items = input$items, plot = "together")
+    plot <- ctticc(selectedData(), items = input$items, plot = "together")
+    plot %>% layout(margin = list(l = 0, r = 0, b = 0, t = 0))
   })
 
   output$tif <- renderPlotly({
     req(selectedData())
-    ctttif(selectedData(), items = input$items, plot = "together")
+    plot <- ctttif(selectedData(), items = input$items, plot = "together")
+    plot %>% layout(margin = list(l = 0, r = 0, b = 0, t = 0))
   })
 
   output$iif <- renderPlotly({
     req(selectedData())
-    cttiif(selectedData(), items = input$items, plot = "together")
+    plot <- cttiif(selectedData(), items = input$items, plot = "together")
+    plot %>% layout(margin = list(l = 0, r = 0, b = 0, t = 0))
   })
 }
 
 shinyApp(ui = ui, server = server)
-
-
