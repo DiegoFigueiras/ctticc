@@ -1,3 +1,11 @@
+# install.packages("psych")
+# install.packages("ggplot2")
+# install.packages("gridExtra")
+# install.packages("tidyverse")
+# install.packages("plotly")
+# install.packages("shiny")
+# install.packages("shinythemes")
+# install.packages("shinydashboard")
 library(psych)
 library(ggplot2)
 library(gridExtra)
@@ -6,6 +14,8 @@ library(plotly)
 library(shiny)
 library(shinythemes)
 library(shinydashboard)
+library(markdown)
+library(downloadthis)
 
 ctticc <- function(data, items, plot="together", nrow=2, ncol=3) {
   pseudob <- data.frame(qnorm(colMeans(data, na.rm=TRUE)))*-1
@@ -184,7 +194,7 @@ ui <- dashboardPage(
 
       div(class='align_class', "Make sure your data is structured such that", br(),
                               "each column is an item in your assessment and", br(),
-                              "each row a respondent.", br(),
+                              "each row represents one respondent.", br(),
                               br(),
                               "Scores should be binary: only 1's and 0's.",
                               br(),
@@ -202,20 +212,34 @@ ui <- dashboardPage(
       br(),
       br(),
       br(),
-      div(class='align_class', "The Item Characteristic Curves are replotted", br(),
-                                "each time you select or de-select an item.", br(),
-                                "User may therefore be interested in gaining", br(),
-                                "visual feedback of item functioning within unique", br(),
-                                "sets of items.", br(),
-                                br(),
-                                "When developing subtests this tool should be", br(),
+      div(class='align_class',  "When developing subtests this tool should be", br(),
                                 "considered beneficial for making item retention", br(),
-                                "or deletion decisions at the subtest level."),
-      p(withMathJax(includeMarkdown("$I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
-      p(withMathJax(includeMarkdown("where: $a_i$ is the discrimination paramter for item $i$:"))),
-      p(withMathJax(includeMarkdown("$P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
-      p(withMathJax(includeMarkdown("$Q_i(\\theta)=1-P_i(\\theta),$"))),
-      p(withMathJax(includeMarkdown("$\\theta$ is the ability level of interest.")))
+                                "or deletion decisions at the subtest level.",br(),
+
+                                br(),
+                                "The Item Characteristic Curves are replotted", br(),
+                                "each time the user select or de-select an item.", br(),
+                                br(),
+                                "The formulas for the TIF and IFF are below:", br(),
+      p(withMathJax(includeMarkdown(" $I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
+      p(withMathJax(includeMarkdown(" where: $a_i$ is the discrimination paramter for item $i$:"))),
+      p(withMathJax(includeMarkdown(" $P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
+      p(withMathJax(includeMarkdown(" $Q_i(\\theta)=1-P_i(\\theta),$"))),
+      p(withMathJax(includeMarkdown(" $\\theta$ is the ability level of interest."))),
+      br(),
+      "The formulas for the ICCs can be found here:", br(),
+      br(),
+      br(),
+      download_link(
+        link = "https://diegofigueiras.github.io/ctticc/ICC_project.pdf",
+        button_label = "ICCs formulas paper",
+        button_type = "default",
+        has_icon = TRUE,
+        icon = "fa fa-print",
+        self_contained = FALSE
+      )
+
+      )
     )
   ),
    dashboardBody(
