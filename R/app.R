@@ -185,18 +185,23 @@ ui <- dashboardPage(
   dashboardSidebar(
     width=350,
     tags$style(".align_class {
+                font-size: 1em;
                 margin-left: 10px;
-                margin-right: 10% !important;
-    }"),
+                margin-right: 1em !important;}
+               .main-sidebar{
+                        width:350px;
+                        text-wrap: wrap;
+                        border: 3px solid #ffffff;}"),
     sidebarMenu(
       br(),
-
-
-      div(class='align_class', "Make sure your data is structured such that", br(),
+      div(class='align_class',      "Make sure your data is structured such that each column is an item in your assessment and
+                              each row represents one respondent.", "Make sure your data is structured such that", br(),
                               "each column is an item in your assessment and", br(),
                               "each row represents one respondent.", br(),
                               br(),
-                              "Scores should be binary: only 1's and 0's.",
+                              "Scores should be binary:",br(),
+                              "1= correct answer.",br(),
+                              "0= incorrect answer", br(),
                               br(),
                               br()),
       menuItem("Data Controls:", tabName = "dashboard", icon = icon("dashboard")),
