@@ -290,8 +290,11 @@ server <- function(input, output, session) {
 
   selectedData <- reactive({
     req(data())
-    data()[, input$items, drop = FALSE]
+    data()[, input$items, drop=FALSE]
+    #data()[, input$items & (apply(data(),2,sd) != 0)] TRYING TO EXCLUDE ITEMS WITH ZERO VARIANCE
   })
+
+
 
   output$numItems <- renderValueBox({
     req(data())
