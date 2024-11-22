@@ -153,8 +153,8 @@ ctttif <- function(data, items, plot="together") {
       group_by(x)%>%
       summarise(y = sum(y))%>%
       ggplot(aes(x, y)) +
- #    scale_y_continuous(limits = function(lim){c(0,lim[1]+2)}) +
- #    ylim(0, 1.5) +
+      #    scale_y_continuous(limits = function(lim){c(0,lim[1]+2)}) +
+      #    ylim(0, 1.5) +
       geom_line(linewidth = 1.25, color="blue") +
       scale_x_continuous(limits = c(-4, 4), labels = c("Low Test Score", "", "Average Test Score", "", "High Test Score")) +
       labs(y = "p(1.0)", x = "") +
@@ -194,16 +194,15 @@ ui <- dashboardPage(
                         border: 3px solid #ffffff;}"),
     sidebarMenu(
       br(),
-      div(class='align_class',      "Make sure your data is structured such that each column is an item in your assessment and
-                              each row represents one respondent.", "Make sure your data is structured such that", br(),
-                              "each column is an item in your assessment and", br(),
-                              "each row represents one respondent.", br(),
-                              br(),
-                              "Scores should be binary:",br(),
-                              "1= correct answer.",br(),
-                              "0= incorrect answer", br(),
-                              br(),
-                              br()),
+      div(class='align_class',      "Make sure your data is structured such that", br(),
+          "each column is an item in your assessment and", br(),
+          "each row represents one respondent.", br(),
+          br(),
+          "Scores should be binary:",br(),
+          "1= correct answer.",br(),
+          "0= incorrect answer", br(),
+          br(),
+          br()),
       menuItem("Data Controls:", tabName = "dashboard", icon = icon("dashboard")),
       fileInput("file", "Upload CSV File", accept = ".csv"),
       actionButton("deselect_all", "Deselect All"),
@@ -218,44 +217,44 @@ ui <- dashboardPage(
       br(),
       br(),
       div(class='align_class',  "When developing subtests this tool should be", br(),
-                                "considered beneficial for making item retention", br(),
-                                "or deletion decisions at the subtest level.",br(),
+          "considered beneficial for making item retention", br(),
+          "or deletion decisions at the subtest level.",br(),
 
-                                br(),
-                                "The Item Characteristic Curves are replotted", br(),
-                                "each time the user select or de-select an item.", br(),
-                                br(),
-                                "The formulas for the TIF and IFF are below:", br(),
-      p(withMathJax(includeMarkdown(" $I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
-      p(withMathJax(includeMarkdown(" where: $a_i$ is the discrimination paramter for item $i$:"))),
-      p(withMathJax(includeMarkdown(" $P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
-      p(withMathJax(includeMarkdown(" $Q_i(\\theta)=1-P_i(\\theta),$"))),
-      p(withMathJax(includeMarkdown(" $\\theta$ is the ability level of interest."))),
-      br(),
-      "The formulas for the ICCs can be found here:", br(),
-      br(),
-      br(),
-      download_link(
-        link = "https://diegofigueiras.github.io/ctticc/ICC_project.pdf",
-        button_label = "ICCs formulas paper",
-        button_type = "default",
-        has_icon = TRUE,
-        icon = "fa fa-print",
-        self_contained = FALSE
-      )
+          br(),
+          "The Item Characteristic Curves are replotted", br(),
+          "each time the user select or de-select an item.", br(),
+          br(),
+          "The formulas for the TIF and IFF are below:", br(),
+          p(withMathJax(includeMarkdown(" $I_i(\\theta)=a^{2}_iP_i(\\theta)Q_i(\\theta)$"))),
+          p(withMathJax(includeMarkdown(" where: $a_i$ is the discrimination paramter for item $i$:"))),
+          p(withMathJax(includeMarkdown(" $P_i(\\theta)=1/(1+EXP(-a_i(\\theta-b_i))),$"))),
+          p(withMathJax(includeMarkdown(" $Q_i(\\theta)=1-P_i(\\theta),$"))),
+          p(withMathJax(includeMarkdown(" $\\theta$ is the ability level of interest."))),
+          br(),
+          "The formulas for the ICCs can be found here:", br(),
+          br(),
+          br(),
+          download_link(
+            link = "https://diegofigueiras.github.io/ctticc/ICC_project.pdf",
+            button_label = "ICCs formulas paper",
+            button_type = "default",
+            has_icon = TRUE,
+            icon = "fa fa-print",
+            self_contained = FALSE
+          )
 
       )
     )
   ),
-   dashboardBody(
+  dashboardBody(
     fluidRow(
-          box(
-            title="Item Characteristic Curves",
-            solidHeader = TRUE,
-            collapsible = TRUE,
-            background = "black",
-            width=12,
-            plotlyOutput('plot1'))
+      box(
+        title="Item Characteristic Curves",
+        solidHeader = TRUE,
+        collapsible = TRUE,
+        background = "black",
+        width=12,
+        plotlyOutput('plot1'))
     ),
     fluidRow(
       box(title = "Test Information Function:",
@@ -321,5 +320,3 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
-
-
