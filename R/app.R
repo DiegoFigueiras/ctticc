@@ -281,23 +281,25 @@ server <- function(input, output, session) {
 
   observe({
     req(data())
-    updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = colnames(data()), inline = TRUE)
+    # Filter columns with non-zero variance
+    valid_columns <- colnames(data())[sapply(data(), function(col) sd(col, na.rm = TRUE) > 0)]
+    updateCheckboxGroupInput(session, "items", choices = valid_columns, selected = valid_columns, inline = TRUE)
   })
 
   observeEvent(input$deselect_all, {
-    updateCheckboxGroupInput(session, "items", choices = colnames(data()), selected = character(0), inline=TRUE)
+    req(data())
+    valid_columns <- colnames(data())[sapply(data(), function(col) sd(col, na.rm = TRUE) > 0)]
+    updateCheckboxGroupInput(session, "items", choices = valid_columns, selected = character(0), inline = TRUE)
   })
 
   selectedData <- reactive({
     req(data())
-    data()[, input$items, drop=FALSE]
-    #data()[, input$items & (apply(data(),2,sd) != 0)] TRYING TO EXCLUDE ITEMS WITH ZERO VARIANCE
+    valid_columns <- colnames(data())[sapply(data(), function(col) sd(col, na.rm = TRUE) > 0)]
+    data()[, intersect(input$items, valid_columns), drop = FALSE]
   })
 
-
-
   output$numItems <- renderValueBox({
-    req(data())
+    req(selectedData())
     num_items <- ncol(selectedData())
     valueBox(
       value = num_items,
@@ -308,18 +310,20 @@ server <- function(input, output, session) {
 
   output$plot1 <- renderPlotly({
     req(selectedData())
-    ctticc(selectedData(), items = input$items, plot = "together")
+    ctticc(selectedData(), items = colnames(selectedData()), plot = "together")
   })
 
   output$tif <- renderPlotly({
     req(selectedData())
-    ctttif(selectedData(), items = input$items, plot = "together")
+    ctttif(selectedData(), items = colnames(selectedData()), plot = "together")
   })
 
   output$iif <- renderPlotly({
     req(selectedData())
-    cttiif(selectedData(), items = input$items, plot = "together")
+    cttiif(selectedData(), items = colnames(selectedData()), plot = "together")
   })
 }
+
+
 
 shinyApp(ui = ui, server = server)
