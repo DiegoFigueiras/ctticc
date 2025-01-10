@@ -70,11 +70,11 @@ class: inverse, left, top
 
 .pull-left[`ctticc` produces visual item characteristic curves from classic test statistics used in quiz and testing applications.
 
-+ Simple inputs are: 
-  + *p*-values
-  + corrected item-total correlations
++ Simple inputs are "scored" binary item responses: 
+  + 1 = correct
+  + 0 = incorrect
   
-Test administrators receive *graphical* feedback regarding item performance:
+Test administrators then receive *graphical* feedback regarding item performance:
 ]
 
 .pull-right[
