@@ -5,9 +5,9 @@ account: diegofigueiras
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12279792
-bundleId: 9067977
+bundleId: 9573163
 url: https://diegofigueiras.shinyapps.io/TestItemCharacteristics/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: app2.R|www/custom.css
+ignoredFiles: app2.R|marcy_class - marcy_class.csv (1).csv|marcy_class - marcy_class.csv.csv|marcy_testing|marcy_testing.csv|marcy_testing2.csv|testdata3.csv

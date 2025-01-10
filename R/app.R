@@ -208,6 +208,7 @@ ui <- dashboardPage(
       actionButton("deselect_all", "Deselect All"),
       checkboxGroupInput("items", "Select Items", choices = NULL, inline=FALSE),
       valueBoxOutput("numItems", width = 6),
+      valueBoxOutput("numExcl", width = 6),
       br(),
       br(),
       br(),
@@ -303,8 +304,20 @@ server <- function(input, output, session) {
     num_items <- ncol(selectedData())
     valueBox(
       value = num_items,
-      subtitle = "Number of Items",
+      subtitle = "Included Items",
       color = "blue"
+    )
+  })
+
+
+  output$numExcl <- renderValueBox({
+    req(selectedData())
+    req(data())
+    num_excl <- ncol(data()) - ncol(selectedData())
+    valueBox(
+      value = num_excl,
+      subtitle = "Excluded Items",
+      color = "red"
     )
   })
 
