@@ -353,9 +353,9 @@ Visual representations of item functioning provide information that all users (i
 
 # Dashboard
 
-.pull-left[[![](dashboard.png)](https://diegofigueiras.shinyapps.io/TestItemCharacteristics/)]
+.Large[A dashboard that performs these functions can be accessed by clicking the image below:]
 
-.pull-right[.Large[A dashboard that performs these plots can be accessed by clicking the image to the left]]
+[![](dashboard.png)](https://diegofigueiras.shinyapps.io/TestItemCharacteristics/)
 
 ---
 
