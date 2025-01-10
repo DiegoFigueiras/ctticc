@@ -349,6 +349,13 @@ These visualizations are pedagogical tools that can further enhance the *instruc
 Visual representations of item functioning provide information that all users (including statistics-avoidant) should feel comfortable consulting and acting on.]
 ]
 
+---
+
+# Dashboard
+
+.pull-left[[dashboard.png)](https://diegofigueiras.shinyapps.io/TestItemCharacteristics/)]
+
+.pull-right[.Large[A dashboard that performs these plots can be accessed by clicking the image to the left)]
 
 ---
 
