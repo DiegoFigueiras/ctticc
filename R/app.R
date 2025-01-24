@@ -180,8 +180,11 @@ ctttif <- function(data, items, plot="together") {
 
 ui <- dashboardPage(
   dashboardHeader(title = "Item Characteristic Curve Dashboard",
-                  titleWidth=400),
-
+                  titleWidth=400,
+                  tags$li(a(href = 'https://github.com/DiegoFigueiras/ctticc',
+                            icon("github"),
+                            title = "Go to GitHub Repo"),
+                          class = "dropdown")),
   dashboardSidebar(
     width=350,
     tags$style(".align_class {
