@@ -184,6 +184,10 @@ ui <- dashboardPage(
                   tags$li(a(href = 'https://github.com/DiegoFigueiras/ctticc',
                             icon("github"),
                             title = "Go to GitHub Repo"),
+                          class = "dropdown"),
+                  tags$li(a(href = 'https://www.youtube.com/watch?v=akKsg65tjVc&list=PLB2CHIRu23zimDNqGHVJFW3Lornxvl27U',
+                            icon("youtube"),
+                            title = "Go to YouTube tutorial"),
                           class = "dropdown")),
   dashboardSidebar(
     width=350,
